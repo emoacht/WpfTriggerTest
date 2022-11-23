@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="WpfTriggerTest.EventTriggerControl1"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:local="clr-namespace:WpfTriggerTest"
+			 mc:Ignorable="d"
+			 d:DesignWidth="200" d:DesignHeight="100">
+	<Canvas Margin="10">
+		<Button Canvas.Left="0" Canvas.Top="0"
+				x:Name="TriggerButton"
+				Width="120" Height="40"
+				Content="Trigger at Button">
+			<Button.Triggers>
+				<EventTrigger RoutedEvent="Button.Click">
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetName="Triangle"
+								Storyboard.TargetProperty="LayoutTransform.Children[2].Angle"
+								From="0" To="120"
+								Duration="0:0:1"/>
+						</Storyboard>
+					</BeginStoryboard>
+				</EventTrigger>
+			</Button.Triggers>
+		</Button>
+
+		<Path Canvas.Left="140" Canvas.Top="4"
+			  x:Name="Triangle"
+			  Width="80" Height="69"
+			  Fill="Black"
+			  Data="M 1,0 0,1.732 2,1.732 z" Stretch="Uniform">
+			<Path.LayoutTransform>
+				<TransformGroup>
+					<ScaleTransform ScaleY="0.5" ScaleX="0.5"/>
+					<SkewTransform/>
+					<RotateTransform CenterX="0.5" CenterY="0.5" Angle="0"/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</Path.LayoutTransform>
+		</Path>
+	</Canvas>
+</UserControl>
