@@ -1,0 +1,32 @@
+﻿<Window x:Class="WpfInteractionTest.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+		xmlns:local="clr-namespace:WpfInteractionTest"
+		Title="WPF Interaction Test"
+		Width="600" Height="400">
+
+	<!-- The first Activated event CANNOT be captrured if MainWindowViewModel is placed here. -->
+	<!--<Window.DataContext>
+		<local:MainWindowViewModel/>
+	</Window.DataContext>-->
+
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="Activated" SourceObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+			<i:InvokeCommandAction Command="{Binding OnActivatedCommand}"/>
+			<i:CallMethodAction TargetObject="{Binding}" MethodName="OnActivatedMethod"/>
+		</i:EventTrigger>
+		<i:EventTrigger EventName="Deactivated">
+			<i:InvokeCommandAction Command="{Binding OnDeactivatedCommand}"/>
+		</i:EventTrigger>
+		<i:EventTrigger EventName="Loaded">
+			<i:InvokeCommandAction Command="{Binding OnLoadedCommand}"/>
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+
+	<!-- The first Activated event CAN be captrured if MainWindowViewModel is placed here. -->
+	<Window.DataContext>
+		<local:MainWindowViewModel/>
+	</Window.DataContext>
+
+</Window>
